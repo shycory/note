@@ -29,6 +29,23 @@ Matrix.refreshDataGridData('DataGrid001');
 Matrix.getGridData('DataGrid001');
 ```
 
+##### 删除的js
+
+```js
+function deleteFun(deviceId){
+	var newData = "{'deviceId':'"+ deviceId; 
+	newData+="','matrix_user_command':'deleteSelect'";
+	newData+="}";
+	var url=webContextPath+'/matrix.rform?				  matrix_send_request=true&matrix_form_tid='+document.getElementById("	matrix_form_tid").value;
+	var synJson = isc.JSON.decode(newData);
+	Matrix.confirm("确认删除设备信息？",function(value){
+			value = true;
+			if(value)
+			Matrix.sendRequest(url,synJson,function(){
+			Matrix.refreshDataGridData("DataGrid001");})});
+}
+```
+
 
 
 #### 窗口
@@ -62,7 +79,7 @@ Matrix.closeWindow();
 ##### 成功
 
 ```js
-
+Matrix.success();
 ```
 
 ##### 失败
@@ -93,5 +110,36 @@ Matrix.error(result.msg);
 
 ``` 
 JSON.stringify();
+```
+
+ 
+
+##### ajax
+
+```js
+$.ajax({
+  //请求方式
+  type : "POST",
+  //请求的媒体类型
+  contentType: "application/json;charset=UTF-8",
+  //请求地址
+  url : url,
+  //数据，json字符串
+  data : newData,
+  //请求成功
+  success : function(result) {
+    var resultData=JSON.parse(result);
+    if(resultData.status==1){
+
+    }else{
+      
+    }
+  },
+  //请求失败，包含具体的错误信息
+  error : function(e){
+      console.log(e.status);
+      console.log(e.responseText);
+  }
+});
 ```
 
