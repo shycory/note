@@ -46,6 +46,24 @@ function deleteFun(deviceId){
 }
 ```
 
+#### 重复表
+
+##### 查询所有重复表数据
+
+```js
+Matrix.getRepeatTableData('EditList001')
+```
+
+##### 添加一行数据
+
+```
+Matrix.addLastRow('EditList001');//无数据添加
+//有数据添加.仅能单行添加
+var data={};
+data.id=’xxx’; data.name=’xxx’;
+Matrix. addRowsOfRepeatGrid('EditList001',data);
+```
+
 
 
 #### 窗口
