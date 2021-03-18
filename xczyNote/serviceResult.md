@@ -21,6 +21,29 @@
 > $("#id_button").removeAttr("disabled");//将按钮设置为可用
 >
 > id_button为保存按钮的id属性
+>
+> ```js
+> 
+> function resultFunc(data){
+> 	console.log(data);
+> 	var resultStr=data.data;
+> 	var result=JSON.parse(resultStr);
+> 	if(result.status=="1"){
+> 		Matrix.success(result.msg);
+> 	}
+> 	if(result.status=="0"){
+> 		Matrix.error(result.msg);
+> 	}
+> 	$("#button003").removeAttr("disabled");
+> 	$("#button006").removeAttr("disabled");
+> 	
+> 	var url = 'draftBatch.rform?mHtml5Flag=true&recordId=#{param.recordId}&batch=#{param.batch}';
+> 	window.location.href=url;
+> }
+> 
+> ```
+>
+> 
 
 ### 3. 后台代码
 
