@@ -95,13 +95,11 @@ configurations = removeDuplicates(configurations);//去掉重复配置
 classLoader.getResources("META-INF/spring.factories")//默认扫描这个文件下的所有 配置类
 ```
 
-
-
 ​	 作用是将springboot写好的一堆默认配置导入,且过滤掉没有引入某些功能的默认配置类
 
 ### `@Conditional`
 
-​	条件注解.满足条件,才会....
+​	有一堆子注解.条件注解.满足条件,才会创建Bean
 
 ### `@importResource`
 
