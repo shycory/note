@@ -209,7 +209,9 @@ Server:
 
 #### 2.镜像命令
 
-##### 2.1 列出本地所有镜像---> docker images [options]
+##### 2.1 列出本地所有镜像
+
+---> docker images [options]
 
 options:
 
@@ -229,13 +231,33 @@ hello-world   latest    d1165f221234   4 days ago   13.3kB
 
 
 
-##### 2.2 拉取镜像---> docker pull [镜像名称]
+##### 2.2 拉取镜像
 
+---> docker pull [镜像名称]
 
+##### 2.3 创建镜像
+
+- 通过容器创建
+
+  ​	---> docker commit -m="message" -a="作者" [容器id] [镜像名称]:[标签]
+
+- 通过Dockerfile创建
+
+  ​	---> docker build -t [镜像名] .
+
+  ​	(-t :指定要创建的目标镜像名
+
+  ​	  .  :  Dockerfile文件所在目录,也可指定绝对路径)
+
+##### 2.4 上传镜像,如阿里云
+
+- 具体命令在阿里云上有
 
 #### 3.容器命令
 
-##### 3.1 运行---> docker run [options] 镜像名/id
+##### 3.1 运行
+
+---> docker run [options] 镜像名/id
 
 > -it 表示交互式.例如运行docker run -it centos 则直接进入容器的centos
 
@@ -259,7 +281,9 @@ hello-world   latest    d1165f221234   4 days ago   13.3kB
 
 
 
-##### 3.2 列出运行的所有容器 ---> docker ps
+##### 3.2 列出运行的所有容器 
+
+---> docker ps
 
 ##### 3.3 退出
 
@@ -293,11 +317,15 @@ hello-world   latest    d1165f221234   4 days ago   13.3kB
 > - -f 跟随最新的日志打印
 > - --tail 数字  显示最后多少条
 
-##### 3.7 查看容器细节---> docker inspect 容器id
+##### 3.7 查看容器细节
+
+---> docker inspect 容器id
 
 > 以json串的形式,显示容器信息
 
-##### 3.8 进入容器---> docker attach 容器id
+##### 3.8 进入容器
+
+---> docker attach 容器id
 
 ##### 3.9 容器外让容器执行命令
 
@@ -323,15 +351,16 @@ hello-world   latest    d1165f221234   4 days ago   13.3kB
 
 
 
-#### DockerFile -本质就是构建镜像的脚本
+#### DockerFile 
 
-> 使用方式
->
++ 本质就是构建镜像的脚本
++ 使用方式
+
 > 手写dockerfile 文件,
 >
 > 使用 docker build 命令执行,获得一个自定义的镜像
 >
-> run它
+> run
 
 ##### 保留字
 
@@ -348,3 +377,4 @@ hello-world   latest    d1165f221234   4 days ago   13.3kB
 - ENTRYPOINT --- 同上,但这个不是默认命令   .**docker run 会追加**
 
 - ONBUILD --- 类似与父类构造器,有子镜像继承后必被触发;
+

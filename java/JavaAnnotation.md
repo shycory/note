@@ -1,12 +1,12 @@
 # Java 注解学习
 
-### java基础注解
+## java基础注解
 
 > 标注在注解上的注解,称为元注解
 
 ***
 
-`@Target` 
+### `@Target` 
 
 - 表示该注解的使用位置
 
@@ -21,7 +21,7 @@
 
 ***
 
-`@Retention`
+### `@Retention`
 
 - 注解的保留时间/生命周期
 
@@ -31,86 +31,101 @@
 
 ***
 
-`@Document`
+### `@Document`
 
 - 加入文档注解
 
 > javadoc中默认没有注解,想保留注解信息,在注解中添加`@Document`
 
-***
-
-`@Inherited`
+### `@Inherited`
 
 - 放在注解上,可被继承注解
 
 > 父类标注的注解中含有`@Inherited` , 则子类继承也会继承该注解
 
-***
+### `@Repeatable`
 
+- java注解---元注解
+  - 被标注的注解,可以在同一个地方多次使用
 
+## sprint-boot
 
-### sprint-boot
+### `@SpringBootApplication`
 
-#### 概览
+> -----> spring-boot的注解都是基于spring等其他框架注解的组合;
 
 ````java
 @SpringBootApplication
-	@SpringBootConfiguration
-		@Configuration
-			@Component
-	@EnableAutoConfiguration
+	@SpringBootConfiguration //仅有Component注解的功能
+		@Configuration//与spring-application.xml的配置文件功能相同
+			@Component//组件,将实例放入spring容器中.
+	@EnableAutoConfiguration //
 		@AutoConfigurationPackage
 			@Import(AutoConfigurationPackages.Registrar.class)
 		@Import(AutoConfigurationImportSelector.class)
-	@ComponentScan(includeFilters,excludeFilters)
-		@Retention
-		
+	@ComponentScan(includeFilters,excludeFilters)//spring注解---扫描
+		//扫描当前注解所在类 的包下所有文件
+			//使用 includeFilters 来按照规则只包含某些包的扫描
+			//使用 excludeFilters 来按照规则排除某些包的扫描
 ````
 
-***
+#### `@SpringBootConfiguration`
 
-#### 作用
+springboot的配置注解,继承自@Configuration
 
-> spring-boot的注解都是基于spring等其他框架注解的组合;
+##### 	`@Configuration`
 
-`@Configuration`
+​	与spring-application.xml的配置文件功能相同,通常和@Bean(创建对象)联用.
 
-- spring注解---配置类
-  - 与spring-application.xml的配置文件功能相同
+#### `@EnableAutoConfiguration`
 
-- `@Component`
-  - spring注解---组件,将实例放入spring容器中.
-    - 与在xml中配置bean实体功能相同;
-    - 有三个子注解,分别为`@Controller`,`@Service`,`@Repository`;
-      - 其中`@Controller`又有子注解`@RestController`
+启用自动配置
 
-***
+##### 			`@AutoConfigurationPackage`
 
-`@ComponentScan`
+###### 					`@Import(Registrar.class)` 
 
-- spring注解---扫描
-  - 扫描当前注解所在类 的包下所有文件
-    - 使用 includeFilters 来按照规则只包含某些包的扫描
-    - 使用 excludeFilters 来按照规则排除某些包的扫描
-- `@Repeatable`
-  - java注解---元注解
-    - 被标注的注解,可以在同一个地方使用相同的注解
+​			作用是将 **添加该注解的类所在的package** 作为 **自动配置package** 进行管理
 
-***
+##### 	`	@Import(AutoConfigurationImportSelector.class)`
 
-`@EnableAutoConfiguration`
+```
+getCandidateConfigurations(annotationMetadata, attributes);//获取所有配置
+configurations = removeDuplicates(configurations);//去掉重复配置
+classLoader.getResources("META-INF/spring.factories")//默认扫描这个文件下的所有 配置类
+```
 
-- spring-boot注解---自动配置
 
-- `@AutoConfigurationPackage`
 
-  - spring-boot注解---自动导入配置包
-  - `@Import(AutoConfigurationPackages.Registrar.class)`
-    - spring注解---导入,导入配置包
+​	 作用是将springboot写好的一堆默认配置导入,且过滤掉没有引入某些功能的默认配置类
 
-- `@Import(AutoConfigurationImportSelector.class)`
+### `@Conditional`
 
-  - spring注解---导入配置选择器
+​	条件注解.满足条件,才会....
 
-  
+### `@importResource`
+
+若项目中存在xml配置文件,可以使用该注解引入
+
+### `@ConfigurationProperties`
+
+将springboot中的配置文件 中配置的变量绑订java类上 .作用和@Value类似,
+
+需要与`@Component`连用,
+
+或者在 配置类上使用`@EnableConfigurationProperties(Test.class)`
+
+```java
+@ConfigurationProperties(prefix="test")
+public class Test(){
+	private String name;
+	public String get(){return this.name} 
+    public void set(String name){this.name=name}
+}
+application.yml中
+	test:
+		name: 哈哈
+```
+
+### 
 
