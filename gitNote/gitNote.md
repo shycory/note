@@ -57,7 +57,7 @@
 >  推送到远程
 >
 > > ```sh
-> > git push origin master
+> > git push origin master   //推送 当前分支 到 远程的master分支 
 > > ```
 >
 > > 本地创建git项目(需先关联远程库),第一次推送需要加 -u   
@@ -65,6 +65,12 @@
 > > > ```sh
 > > > git push -u origin master
 > > > ```
+
+> 拉取
+>
+> > ```sh
+> > git pull origin master   //拉取 远程的master分支,到当前分支
+> > ```
 
 ### 1.2 git工作空间结构
 
